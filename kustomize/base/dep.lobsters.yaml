@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lobsters
+  namespace: lr
+  labels:
+    app: lr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: lr
+      
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: lr
+    spec:
+      containers:
+      - name: lobsters
+        image: logicalmethods/lobsters:6e730e9
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: lobsters-env

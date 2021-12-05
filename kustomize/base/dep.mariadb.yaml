@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: lr
+  labels:
+    app: lr
+    server: mariadb
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: lr
+      server: mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: lr
+        server: mariadb
+    spec:
+      containers:
+      - name: lobsters
+        image: mariadb:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: mariadb
+          containerPort: 3306
+        envFrom:
+        - configMapRef:
+            name: mariadb-env

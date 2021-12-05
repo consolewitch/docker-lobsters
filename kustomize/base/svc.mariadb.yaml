@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  namespace: lr
+  labels:
+    app: lr
+    server: mariadb
+spec:
+  type: ClusterIP
+  selector:
+    server: mariadb
+    app: lr
+  ports:
+  - name: mariadb
+    protocol: TCP
+    port: 3306
+    targetPort: mariadb

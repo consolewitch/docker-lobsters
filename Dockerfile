@@ -4,12 +4,12 @@
 ARG BASE_IMAGE=ruby:2.7-alpine
 FROM ${BASE_IMAGE}
 
-# Create lobsters user and group.
+#1# Create lobsters user and group.
 RUN set -xe; \
     addgroup -S lobsters; \
     adduser -S -h /lobsters -s /bin/sh -G lobsters lobsters;
 
-# Install needed runtime dependencies.
+#2# Install needed runtime dependencies.
 RUN set -xe; \
     chown -R lobsters:lobsters /lobsters; \
     apk add --no-cache --update --virtual .runtime-deps \
@@ -48,7 +48,7 @@ RUN set -xe; \
     su lobsters -c "gem install bundler --user-install"; \
     su lobsters -c "gem update"; \
     su lobsters -c "gem install rake -v 13.0.1"; \
-    su lobsters -c "bundle config set no-cach 'true'"; \
+    su lobsters -c "bundle config set no-cache 'true'"; \
     su lobsters -c "bundle install"; \
     if [ "${DEVELOPER_BUILD,,}" != "true" ]; \
     then \

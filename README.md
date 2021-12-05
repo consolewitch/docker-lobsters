@@ -35,3 +35,8 @@ docker run -p 3000:3000 --link lobsters:mariadb utensils/lobsters
 [lobsters]: https://github.com/lobsters/lobsters
 [ruby-alpine]: https://hub.docker.com/_/ruby/
 [mariadb image]: https://hub.docker.com/_/mariadb/
+
+## Logging In
+The default login for this seed data is 
+`username: test`
+`password: test`
